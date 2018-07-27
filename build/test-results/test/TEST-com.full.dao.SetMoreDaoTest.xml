@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.full.dao.SetMoreDaoTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-07-18T11:07:27" hostname="FULL202-PRT.FULL.Creative" time="3.97">
+  <properties/>
+  <testcase name="createCustomerPositive" classname="com.full.dao.SetMoreDaoTest" time="3.931"/>
+  <testcase name="getCustomerDetailsPositive" classname="com.full.dao.SetMoreDaoTest" time="0.038"/>
+  <system-out><![CDATA[Iam in Create Customer Helper
+Lokesh Kumar
+Customer("Lokesh Kumar")
+]]></system-out>
+  <system-err><![CDATA[Jul 18, 2018 11:07:28 AM com.google.appengine.api.datastore.dev.LocalDatastoreService init
+INFO: Local Datastore initialized: 
+	Type: High Replication
+	Storage: In-memory
+Jul 18, 2018 11:07:31 AM com.google.appengine.api.datastore.dev.LocalDatastoreService init
+INFO: Local Datastore initialized: 
+	Type: High Replication
+	Storage: In-memory
+]]></system-err>
+</testsuite>

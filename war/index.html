@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+.loginBox
+{
+width:30%;
+margin-top:10%;
+margin-left:30%;
+
+margin-right:30%;
+padding:40px 20px;
+}
+.input {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin-bottom: 0%;
+}
+button:focus {
+outline:0;
+}
+.infoLabel{
+float:left;
+width:100px;
+margin-top:15px;
+}
+.loginButton,.continue-button{
+width:150px;
+height:50px;
+background-color:  #31DEDE;
+hover:pointer;
+padding:10px;
+border-radius: 20px;
+cursor:pointer;
+border-color: #31DEDE;
+}
+.service_headings{
+margin:5px 20px;
+display: inline-block;
+flex-basis: 150px;
+}
+.service_value{
+margin:5px 30px;
+display:inline-block;
+flex-basis: 150px;
+}
+#service{
+cursor:pointer;
+border-bottom: 1px solid #737373;
+}
+.viewsbox{
+width:250px;
+margin-left:3%;
+margin-top:14%;
+border:1px solid black;
+}
+a{
+display: block;
+text-decoration: none;
+    margin: 20px 15px;
+    text-align: center;
+}
+#content{
+    left:30%;
+    top:20%;
+    margin:0%;
+    width:50%;
+    height:25%;
+    padding-top:50px;
+    border: 0px solid blue;
+    box-sizing: border-box;
+        margin-top: 2%;
+    margin-left: 5%;
+}
+.services{
+display: flex;
+ justify-content: space-around;
+}
+.services:hover{
+padding:0;
+border:1px #737373;
+box-shadow: 0 4px 3px 0 #C6BCBC;
+}
+.provider_name:hover{
+padding:0;
+border:1px #737373;
+box-shadow: 0 4px 3px 0 #C6BCBC;
+cursor:pointer;
+}
+.providers{
+
+}
+.provider_name{
+margin:10px 5px;
+border-bottom: 1px solid black;
+font-weight: lighter;
+font-style: normal;
+color: blue;
+}
+.timings{
+    margin-left: 5%;
+    margin-top: 4%;
+}
+.input1 {
+    width: 20%;
+    padding: 8px 20px;
+    display: inline-block;
+    border: 0.5px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+#city{
+margin-left: 22%;}
+.info-label{
+float:left;
+width:100px;
+margin-top:15px;
+}
+ .styleDiv{
+display:inline-block;
+margin-top:50px;
+padding:0px;
+float:left;
+}
+</style>
+</head>
+<body>
+<script type="text/template" id="views_template">
+<div class='viewsbox'>
+<a href="#bookingappointment">BOOKING APPOINTMENT</a>
+<a href="#services">SERVICES</a>
+<a href="#providers">PROVIDERS</a>
+</div>
+</script>
+<script type="text/template" id="service-list-template" >
+<div class='template_style'>
+<div class='services'>
+<div class='service_headings'>SERVICE NAME</div>
+<div class='service_headings'>DURATION</div>
+<div class='service_headings'>COST</div>
+<div class='service_headings'></div>
+</div>
+
+    <% _.each(services, function(service) { %>
+     <div  class='services' id='service'>
+        <div class='service_value' id=<%= service.key %>><%= service.service_name %></div>
+        <div class='service_value' id='service_duration'><%=service.duration %>mins</div>
+        <div class='service_value' id='service_cost'>RS.<%=(service.cost==undefined)?0:service.cost%></div>
+        <div class='service_value' id=<%=service.staff_keys%>></div>
+      </div>
+    <% }); %>
+</div>
+</script>
+<script type="text/template" id="providers-list-template" >
+<div class='providers'>
+ <% _.each(providers, function(provider) { %>
+
+      <div class='provider_name' id=<%= provider.key%>><%= provider.first_name %></div>
+
+    <% }); %>
+</div>
+</script>
+<script type="text/template" id="timings-list-template" >
+<div class='timings'>
+<div id='currentDate' style='margin-bottom: 15px;'><label     style='margin-right: 30px'>Select Date:</label><input type='date' id='dateValue'/></div>
+<label    style=' margin-right: 30px'>Select Time:</label>
+<select id='selectedSlotTime'><option>select time</option>
+ <% _.each(slots, function(slot) { %>
+      <option ><%=slot%></option>
+    <% }); %>
+</select>
+</div>
+</script>
+<script type="text/template" id="userDetails-list-template" >
+<div class='userDetails'>
+<form class='userDetailsForm'>
+<div><label class='info-label'>NAME</label><input type='text' id='userName' class='input' placeholder='username'/></div>
+<div><label class='info-label'>EMAIL</label><input type='email' id='eMail' class='input' placeholder='EMail'/></div>
+<div><label class='info-label'>Phone No</label><input type='text' id='phoneNo' class='input' placeholder='PhoneNo'/></div>
+<div><label class='info-label'>ADDRESS</label><input type='text' id='address' class='input' placeholder='Address'/></div>
+<div><input type='text' id='city' placeholder='city' class='input1'/><input type='text' id='state' placeholder='state' class='input1'/><input type='text' id='zipcode' placeholder='zipcode' class='input1'/></div>
+<div><label class='info-label'>COMMENTS</label><textarea id='comments'rows='4' cols='50' class='input' placeholder='optional'/></div>;
+<button class='continue-button' style='margin-left: 18%;margin-top: 5%;'>Continue</button>
+</form>
+</div>
+</script>
+<script type="text/template" id='bookDetails-list-Template'>
+<div class='confirm-appointment'><div class='confirm-div'><label class='confirm-label'>SERVICE:</label><span class='confirmDetails'><%= selectedService %></span></div>
+<div class='confirm-div'><label class='confirm-label'>PROVIDER:</label><span class='confirmDetails'><%=selectedProvider %></span></div>
+<div class='confirm-div'><label class='confirm-label'>Date&Time:</label><span class='confirmDetails'><%=selectedDate %><%= selectedTime %></span></div>
+</script>
+<script type="text/template" id="fileDownload" >
+<div class='fileDownload'>
+<form>
+<div>SORT BY:</div><div><ul><li>CREATED AT</li><li>LAST REQUEST AT</li><li>SIGNED UP AT</li><li>UPDATED AT</li></ul></div>
+<div>ORDER BY:</div><div><ul><li>ASCENDING</li><li>DESCENDING</li></ul></div>
+<div>CREATED SINCE:</div><div><input type="number" id="noOfDays"/>
+</form>
+</div>
+</script>
+<script type="text/template" id="fileDownloadHeader" >
+<div>
+<form>
+<div id="headerFile">
+<div>GENERATE REPORT</div><div>FILE DOWNOAD</div>
+</div>
+</form>
+</div>
+</script>
+<div>
+<div id='view' class='styleDiv'></div>
+<div id="content" class='styleDiv'></div>
+</div>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js" type="text/javascript"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js" type="text/javascript"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script> 
+  <script type="text/javascript" src="/scripts/Models/model.js"></script>
+  <script type="text/javascript" src="/scripts/Views/view.js"></script>
+  <script type="text/javascript" src="/scripts/routers/router.js"></script>
+  <script type="text/javascript">
+  var router=new Router();
+  Backbone.history.start();
+  </script>
+	<script>
+		window.intercomSettings = {
+			app_id : "ejh3fr3g"
+		};
+	</script>
+	<script>
+		(function() {
+			var w = window;
+			var ic = w.Intercom;
+			if (typeof ic === "function") {
+				ic('reattach_activator');
+				ic('update', intercomSettings);
+			} else {
+				var d = document;
+				var i = function() {
+					i.c(arguments)
+				};
+				i.q = [];
+				i.c = function(args) {
+					i.q.push(args)
+				};
+				w.Intercom = i;
+				function l() {
+					var s = d.createElement('script');
+					s.type = 'text/javascript';
+					s.async = true;
+					s.src = 'https://widget.intercom.io/widget/ejh3fr3g';
+					var x = d.getElementsByTagName('script')[0];
+					x.parentNode.insertBefore(s, x);
+				}
+				if (w.attachEvent) {
+					w.attachEvent('onload', l);
+				} else {
+					w.addEventListener('load', l, false);
+				}  
+			}
+		})()
+	</script>
+	<script id="setmore_script" type="text/javascript" src="https://my.setmore.com/js/iframe/setmore_iframe.js"></script><a id="Setmore_button_iframe" style="float:none" href="https://my.setmore.com/bookingpage/dd674b59-baf7-41e8-9fe7-a3b746e195a7"><img border="none" src="https://my.setmore.com/webapp/images/bookappt/SetMore-book-button.png" alt="Book an appointment with lok using SetMore" /></a>
+</body>
+</html>

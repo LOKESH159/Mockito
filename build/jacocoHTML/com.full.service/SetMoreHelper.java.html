@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetMoreHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Mockito1</a> &gt; <a href="index.source.html" class="el_package">com.full.service</a> &gt; <span class="el_source">SetMoreHelper.java</span></div><h1>SetMoreHelper.java</h1><pre class="source lang-java linenums">package com.full.service;
+
+import java.net.HttpURLConnection;
+
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Service;
+import com.full.dto.CustomerList;
+
+import com.full.dao.SetMoreDao;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+@Service
+<span class="fc" id="L19">public class SetMoreHelper {</span>
+	String accessToken;
+	HttpURLConnection con;
+<span class="fc" id="L22">	Logger logger=Logger.getLogger(SetMoreHelper.class.getName());</span>
+
+
+public String getCustomerDetails(HttpServletRequest req){
+<span class="fc" id="L26">	JsonObject jsonObject=new JsonObject();</span>
+	try{
+<span class="fc" id="L28">Entity  userDetails=SetMoreDao.getCustomerDetails(req.getParameter(&quot;userName&quot;));</span>
+
+<span class="fc" id="L30">	CustomerList customerList=new CustomerList();</span>
+<span class="fc" id="L31">	customerList.setUserName(req.getParameter(&quot;userName&quot;));</span>
+<span class="fc" id="L32">	customerList.setGender((String)userDetails.getProperty(&quot;Gender&quot;));</span>
+<span class="fc" id="L33">	customerList.setAge((int)userDetails.getProperty(&quot;age&quot;));</span>
+<span class="fc" id="L34">	customerList.setAgeGroup((String)userDetails.getProperty(&quot;ageGroup&quot;));</span>
+<span class="fc" id="L35">	Gson gson=new Gson();</span>
+<span class="fc" id="L36">	jsonObject.addProperty(&quot;response&quot;, true);</span>
+<span class="fc" id="L37">	jsonObject.addProperty(&quot;data&quot;, gson.toJson(customerList));</span>
+	}
+<span class="fc" id="L39">	catch(EntityNotFoundException e){</span>
+		
+<span class="fc" id="L41">		jsonObject.addProperty(&quot;response&quot;, false);</span>
+<span class="fc" id="L42">		jsonObject.addProperty(&quot;data&quot;, &quot;user not found&quot;);</span>
+<span class="fc" id="L43">		return jsonObject.toString(); </span>
+	}
+<span class="fc" id="L45">	catch(Exception e){</span>
+<span class="fc" id="L46">		jsonObject.addProperty(&quot;response&quot;, false);</span>
+<span class="fc" id="L47">		jsonObject.addProperty(&quot;data&quot;, &quot;some internal exception occured&quot;);</span>
+<span class="fc" id="L48">		return jsonObject.toString(); </span>
+<span class="fc" id="L49">	}</span>
+<span class="fc" id="L50">	return jsonObject.toString();</span>
+}
+public String createCustomer(HttpServletRequest req){
+<span class="fc" id="L53">	JsonObject jsonObject=new JsonObject();</span>
+<span class="fc" id="L54">	System.out.println(&quot;Iam in createCustomer Helper class&quot;);</span>
+
+	try{
+<span class="fc" id="L57">		int age = Integer.parseInt(req.getParameter(&quot;age&quot;));</span>
+<span class="fc" id="L58">		CustomerList customerList =new CustomerList();</span>
+<span class="fc" id="L59">		customerList.setUserName(req.getParameter(&quot;userName&quot;));</span>
+<span class="fc" id="L60">		customerList.setGender(req.getParameter(&quot;gnd&quot;));</span>
+<span class="fc" id="L61">		customerList.setAge(age);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">		if(age&lt;=18)</span>
+<span class="fc" id="L63">			customerList.setAgeGroup(&quot;teen age&quot;);</span>
+		
+<span class="pc bpc" id="L65" title="1 of 4 branches missed.">		else if (age&gt;18 &amp;&amp; age&lt;=30)</span>
+<span class="fc" id="L66">			customerList.setAgeGroup(&quot;young age&quot;);</span>
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">		else if (age&gt;30 &amp;&amp; age &lt;=55)</span>
+<span class="fc" id="L68">			customerList.setAgeGroup(&quot;middle age&quot;);</span>
+		
+		else
+<span class="fc" id="L71">			customerList.setAgeGroup(&quot;old age&quot;);</span>
+	
+<span class="fc" id="L73">	SetMoreDao.createCustomer(customerList);</span>
+<span class="fc" id="L74">	jsonObject.addProperty(&quot;response&quot;,true);</span>
+<span class="fc" id="L75">	jsonObject.addProperty(&quot;data&quot;,&quot;Customer Created Successfully&quot;);</span>
+	}
+<span class="fc" id="L77">	catch(Exception e){</span>
+<span class="fc" id="L78">		System.out.println(&quot;I got exception&quot;);</span>
+<span class="fc" id="L79">		jsonObject.addProperty(&quot;response&quot;,false);</span>
+<span class="fc" id="L80">		jsonObject.addProperty(&quot;data&quot;,&quot;some Exception Occurred&quot;);</span>
+<span class="fc" id="L81">	}</span>
+<span class="fc" id="L82">	return jsonObject.toString();</span>
+}
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function createUser(){
+	
+	var firstName = $("#firstName").val();
+	var lastName = $("#lastName").val();
+	var gender = $("#gender").val();
+	var age = $("#age").val();
+	var x={
+			"name":firstName+lastName,
+			"age":age,
+			"gnd":gender
+	};
+	var xS= JSON.stringify(x);
+	$.ajax({
+		  type: "POST",
+		  url: "/createCustomer",
+		  data: xS,
+		  cache: false,
+		  success: function(data){
+		    console.log(data);
+		  }
+		});
+	
+	
+}
+
+
+</script>
+</head>
+<body>
+  First name:<br>
+  <input type="text" name="firstname" id="firstname"/>
+  <br>
+  Last name:
+  <input type="text" name="lastname" id="lastname">
+  <br>
+ Gender : <input type="radio" name="gender" value="male" id="gender" checked> Male
+  <input type="radio" name="gender" value="female" id="gender"> Female
+  Age :<input type="text" name="age" id="age">
+  <input type="submit" value="Submit" onclick="return createUser()">
+</body>
+</html>

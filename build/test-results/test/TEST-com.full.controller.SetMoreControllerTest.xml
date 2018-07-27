@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.full.controller.SetMoreControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-07-18T11:07:31" hostname="FULL202-PRT.FULL.Creative" time="1.323">
+  <properties/>
+  <testcase name="createCustomer" classname="com.full.controller.SetMoreControllerTest" time="1.322"/>
+  <testcase name="getCustomerDetails" classname="com.full.controller.SetMoreControllerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

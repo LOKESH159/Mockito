@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.full.service.SetMoreServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2018-07-18T11:07:32" hostname="FULL202-PRT.FULL.Creative" time="2.114">
+  <properties/>
+  <testcase name="createCustomerPositive" classname="com.full.service.SetMoreServiceTest" time="1.822"/>
+  <testcase name="getCustomerDetailsPositive" classname="com.full.service.SetMoreServiceTest" time="0.263"/>
+  <testcase name="createCustomerPositive1" classname="com.full.service.SetMoreServiceTest" time="0.004"/>
+  <testcase name="createCustomerPositive2" classname="com.full.service.SetMoreServiceTest" time="0.006"/>
+  <testcase name="createCustomerPositive3" classname="com.full.service.SetMoreServiceTest" time="0.003"/>
+  <testcase name="createCustomerNegative" classname="com.full.service.SetMoreServiceTest" time="0.004"/>
+  <testcase name="getCustomerDetailsNegative" classname="com.full.service.SetMoreServiceTest" time="0.009"/>
+  <testcase name="getCustomerDetailsNegative2" classname="com.full.service.SetMoreServiceTest" time="0.002"/>
+  <system-out><![CDATA[Iam in createCustomer Helper class
+Iam setting userName
+Iam setting gender
+Iam setting userName
+Iam setting gender
+Iam in createCustomer Helper class
+Iam setting userName
+Iam setting gender
+Iam in createCustomer Helper class
+Iam setting userName
+Iam setting gender
+Iam in createCustomer Helper class
+Iam setting userName
+Iam setting gender
+Iam in createCustomer Helper class
+I got exception
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

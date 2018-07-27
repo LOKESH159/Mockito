@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function myPostFunction(){
+	var x={
+			"name":"Lokesh",
+			"age":22,
+			"gnd":"Male"
+	};
+	var xS= JSON.stringify(x);
+	$.ajax({
+		  type: "POST",
+		  url: "/sendPostData",
+		  data: xS,
+		  cache: false,
+		  success: function(data){
+		    console.log(data);
+		  }
+		});
+	
+}
+</script>
+</head>
+<body>
+<button onclick="myPostFunction()">Ckick Here</button>
+</body>
+</html>
